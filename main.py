@@ -1,1 +1,4 @@
-print("Hello!")
+from menu import Menu
+
+
+Menu().start()
