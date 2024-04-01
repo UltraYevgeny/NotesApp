@@ -13,7 +13,7 @@ class File:
             with open(self.NAME_FILE) as f:
                 for line in f.read().splitlines():
                     all_notes.append(line)
-                print("Get data from notes file")
+                #print("Get data from notes file")
         #else:
             #with open(self.NAME_FILE, "w") as f:
                 #pass

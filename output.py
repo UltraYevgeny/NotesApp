@@ -1,6 +1,8 @@
 
 class Output:
 
-    def print_all_notes(self, all_notes):
-        print("Список заметок:\n", all_notes)
+    def print_all_notes(self, notes):
+        print("Список заметок:\n")
+        for note in notes:
+            print(note)
 

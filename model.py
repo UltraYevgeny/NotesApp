@@ -33,3 +33,11 @@ class Model:
     def change_note(self, changed_note, number_note):
         self.all_notes[number_note] = changed_note
 
+    def list_by_date(self, date):
+        filtered_list = []
+        for note in self.all_notes:
+            if date in note:
+                filtered_list.append(note)
+        return filtered_list
+
+
