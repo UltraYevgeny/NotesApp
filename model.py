@@ -21,3 +21,14 @@ class Model:
         del self.all_notes[number_note]
         print("Заметка удалена")
 
+    def file_write(self):
+        File().write(self.all_notes)
+
+    def separate_note(self, note):
+        separate_note = []
+        for part in note.split(";"):
+            separate_note.append(part)
+        return separate_note
+
+
+

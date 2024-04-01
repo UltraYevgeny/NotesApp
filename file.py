@@ -19,4 +19,9 @@ class File:
                 #pass
         return all_notes
 
+    def write(self, all_notes):
+        with open(self.NAME_FILE, "w") as f:
+            for note in all_notes:
+                f.writelines(f"{note}\n")
+
 

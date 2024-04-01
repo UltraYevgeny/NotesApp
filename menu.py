@@ -12,7 +12,7 @@ class Menu:
         Output().print_all_notes(model.get_all_notes())
         
         Menu().first_menu(model)
-
+        
     def enter_menu(self, number_menu):
         while True:
             number_action = int(input("Ввод: "))
@@ -29,7 +29,7 @@ class Menu:
 
     def first_menu(self, model):
         while True:
-            print("")
+            print("-Главное меню")
             time.sleep(0.3)
             print("Введите 1 для добавления заметки")
             time.sleep(0.3)
@@ -48,6 +48,7 @@ class Menu:
                 case 3:
                     Menu().second_menu(model, Menu().question_menu(model))
                 case 4:
+                    model.file_write()
                     print("Exit")
                     return
 
@@ -61,7 +62,7 @@ class Menu:
 
     def second_menu(self, model, number_note):
          while True:
-            print("")
+            print("--Меню работы с заметкой №:", number_note)
             time.sleep(0.3)
             print("Введите 1 для редоктирования этой заметки")
             time.sleep(0.3)
@@ -84,7 +85,31 @@ class Menu:
                     return
 
     def third_menu(self, model, number_note):
-        return
+        note_seporate = model.separate_note(model.get_one_note(number_note))
+        
+        while True:
+            print("---Меню редактирования:")
+            time.sleep(0.3)
+            print("Введите 1 для редоктирования заголовка")
+            time.sleep(0.3)
+            print("Введите 2 для редоктирования заметки")
+            time.sleep(0.3)
+            print("Введите 3 для просмотра этой заметки")
+            time.sleep(0.3)
+            print("Введите 4 для возврата в предыдущее меню")
+
+            number_action = Menu().enter_menu(4)
+            match number_action:
+                case 1:
+                    print("Заголовок на данный момент:", note_seporate[1])
+                    title = input("Введите новый заголовок: ")
+                    note_seporate[1] = title
+                case 2:
+                    print()
+                case 3:
+                    print(note_seporate)
+                case 4:
+                    return
 
 
 
