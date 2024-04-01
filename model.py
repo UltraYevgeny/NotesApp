@@ -30,5 +30,6 @@ class Model:
             separate_note.append(part)
         return separate_note
 
-
+    def change_note(self, changed_note, number_note):
+        self.all_notes[number_note] = changed_note
 

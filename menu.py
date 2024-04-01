@@ -7,7 +7,7 @@ from output import Output
 class Menu:
 
     def start(self):     
-        input("Для входа в программу нажмите Enter")
+        input("Для входа в программу нажмите Enter\n")
         model = Model()
         Output().print_all_notes(model.get_all_notes())
         
@@ -22,14 +22,14 @@ class Menu:
     def add_note(self, model):
         title = input("Введите заголовок: ")
         title_body = input("Введите заметку: ")
-        time = datetime.datetime.today().strftime("%Y-%m-%d / %H.%M.%S")
+        time_now = datetime.datetime.today().strftime("%Y-%m-%d / %H.%M.%S")
         separator = ";"
-        full_note = title + separator + title_body + separator + time
+        full_note = title + separator + title_body + separator + time_now
         model.list_add_note(full_note)
 
     def first_menu(self, model):
         while True:
-            print("-Главное меню")
+            print("\n-Главное меню")
             time.sleep(0.3)
             print("Введите 1 для добавления заметки")
             time.sleep(0.3)
@@ -38,7 +38,7 @@ class Menu:
             print("Введите 3 для работы с какой-либо заметкой")
             time.sleep(0.3)
             print("Введите 4 для выхода из программы")
-            
+
             number_action = Menu().enter_menu(4)
             match number_action:
                 case 1:
@@ -62,7 +62,7 @@ class Menu:
 
     def second_menu(self, model, number_note):
          while True:
-            print("--Меню работы с заметкой №:", number_note)
+            print("\n--Меню №2: выбор действия с заметкой номер:", number_note)
             time.sleep(0.3)
             print("Введите 1 для редоктирования этой заметки")
             time.sleep(0.3)
@@ -70,12 +70,13 @@ class Menu:
             time.sleep(0.3)
             print("Введите 3 для просмотра этой заметки")
             time.sleep(0.3)
-            print("Введите 4 для возврата в предыдущее меню")
+            print("Введите 4 для возврата в Главное меню")
 
             number_action = Menu().enter_menu(4)
             match number_action:
                 case 1:
-                    Menu().third_menu(model, number_note)
+                    changed_note = Menu().third_menu(model, number_note)
+                    model.change_note(changed_note, number_note)
                 case 2:
                     model.del_note(number_note)
                     return
@@ -88,15 +89,15 @@ class Menu:
         note_seporate = model.separate_note(model.get_one_note(number_note))
         
         while True:
-            print("---Меню редактирования:")
+            print("\n---Меню №3: редактировать заметку:")
             time.sleep(0.3)
             print("Введите 1 для редоктирования заголовка")
             time.sleep(0.3)
             print("Введите 2 для редоктирования заметки")
             time.sleep(0.3)
-            print("Введите 3 для просмотра этой заметки")
+            print("Введите 3 для просмотра заметки")
             time.sleep(0.3)
-            print("Введите 4 для возврата в предыдущее меню")
+            print("Введите 4 для возврата в меню №2")
 
             number_action = Menu().enter_menu(4)
             match number_action:
@@ -105,11 +106,14 @@ class Menu:
                     title = input("Введите новый заголовок: ")
                     note_seporate[1] = title
                 case 2:
-                    print()
+                    print("Заметка на данный момент:", note_seporate[2])
+                    note = input("Введите новую заметку: ")
+                    note_seporate[2] = note
                 case 3:
                     print(note_seporate)
                 case 4:
-                    return
+                    note_seporate[3] = datetime.datetime.today().strftime("%Y-%m-%d / %H.%M.%S")
+                    return ";".join(note_seporate)
 
 
 
