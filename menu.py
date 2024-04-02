@@ -10,14 +10,15 @@ class Menu:
         input("Для входа в программу нажмите Enter")
         model = Model()
         #Output().print_all_notes(model.get_all_notes())
-        
         Menu().first_menu(model)
         
     def enter_menu(self, number_menu):
+
         while True:
-            number_action = int(input("Ввод: "))
-            if number_action <= number_menu:
-                return number_action
+            number_action = input("Ввод: ")
+            if number_action.isdigit():
+                if number_menu >= int(number_action) > 0:
+                    return int(number_action)
 
     def add_note(self, model):
         title = input("Введите заголовок: ")
@@ -28,22 +29,27 @@ class Menu:
         model.list_add_note(full_note)
 
     def search_by_date(self, model):
-        date = input("Введите дату для поиска заметок (например 2001-01-01): ")
-        list_by_date = model.list_by_date(date)
-        return list_by_date
+        date = input("Введите дату для поиска заметок (в таком формате: 2001-01-01): ")
+        if len(date) != 10:
+            return ["Заметок с такой датой нет"]
+        list_by_date = model.notes_by_date(date)
+        if list_by_date:
+            return list_by_date
+        else:
+            return ["Заметок с такой датой нет"]
 
     def first_menu(self, model):
         while True:
             print("\n-Главное меню")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 1 для добавления заметки")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 2 для просмотра всех заметок")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 3 для просмотра заметок по дате")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 4 для работы с какой-либо заметкой")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 5 для выхода из программы")
 
             number_action = Menu().enter_menu(5)
@@ -65,20 +71,21 @@ class Menu:
          while True:
             print("")
             time.sleep(0.3)
-            number_note = int(input("Введите номер заметки с которой вы хотите работать: "))
-            if number_note <= len(model.get_all_notes()):
-                return number_note-1
+            number_note = input("Введите номер заметки с которой вы хотите работать: ")
+            if number_note.isdigit():
+                if 0 < int(number_note) <= len(model.get_all_notes()):
+                    return int(number_note)-1
 
     def second_menu(self, model, number_note):
          while True:
             print("\n--Меню №2: выбор действия с заметкой номер:", number_note+1)
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 1 для редоктирования этой заметки")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 2 для удаления этой заметки")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 3 для просмотра этой заметки")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 4 для возврата в Главное меню")
 
             number_action = Menu().enter_menu(4)
@@ -99,13 +106,13 @@ class Menu:
         
         while True:
             print("\n---Меню №3: редактировать заметку:")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 1 для редоктирования заголовка")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 2 для редоктирования заметки")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 3 для просмотра заметки")
-            time.sleep(0.3)
+            time.sleep(0.1)
             print("Введите 4 для возврата в меню №2")
 
             number_action = Menu().enter_menu(4)
@@ -123,9 +130,4 @@ class Menu:
                 case 4:
                     note_seporate[3] = datetime.datetime.today().strftime("%Y-%m-%d/%H.%M.%S")
                     return ";".join(note_seporate)
-
-
-
-
-
 
