@@ -1,6 +1,6 @@
 from file import File
 
-
+# This is The Model
 class Model:
     all_notes: list
 
